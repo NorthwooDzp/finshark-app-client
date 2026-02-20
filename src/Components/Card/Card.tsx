@@ -1,8 +1,8 @@
 import "./Card.scss";
 
-type Props = {};
+interface CardProps {}
 
-const Card = (props: Props) => {
+const Card = (props: CardProps) => {
   return (
     <div className="card">
       <img
