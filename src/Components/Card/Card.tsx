@@ -1,8 +1,12 @@
 import "./Card.scss";
 
-interface CardProps {}
+interface CardProps {
+  companyName: string;
+  price: number;
+  ticker: string;
+}
 
-const Card = (props: CardProps) => {
+const Card = ({ companyName, price, ticker }: CardProps) => {
   return (
     <div className="card">
       <img
@@ -10,8 +14,10 @@ const Card = (props: CardProps) => {
         alt="Image"
       />
       <div className="details">
-        <h2>APPL</h2>
-        <p>$110</p>
+        <h2>
+          {companyName} ({ticker})
+        </h2>
+        <p>${price}</p>
       </div>
       <p className="info">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem, at?</p>
     </div>
