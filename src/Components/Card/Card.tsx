@@ -1,3 +1,5 @@
+import type React from "react";
+import type { JSX } from "react";
 import "./Card.scss";
 
 interface CardProps {
@@ -6,7 +8,7 @@ interface CardProps {
   ticker: string;
 }
 
-const Card = ({ companyName, price, ticker }: CardProps) => {
+const Card: React.FC<CardProps> = ({ companyName, price, ticker }): JSX.Element => {
   return (
     <div className="card">
       <img

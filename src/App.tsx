@@ -1,12 +1,14 @@
+import type React from "react";
 import "./App.scss";
 import CardList from "./Components/CardList/CardList";
+import type { JSX } from "react";
 
-function App() {
+const App: React.FC = (): JSX.Element => {
   return (
     <div>
       <CardList />
     </div>
   );
-}
+};
 
 export default App;
