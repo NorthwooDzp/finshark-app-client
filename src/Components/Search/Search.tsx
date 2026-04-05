@@ -1,25 +1,23 @@
-import React, { useState, type ChangeEvent, type MouseEvent, type JSX, useRef } from 'react';
+import React, { useRef, type ChangeEvent, type JSX } from 'react';
 
-const Search: React.FC = (): JSX.Element => {
-  const [search, setSearch] = useState<string>('');
+interface SearchProps {
+  searchStr: string;
+  handleInputChange: (val: string) => void;
+  handleButtonClick: () => void;
+}
+
+const Search: React.FC<SearchProps> = ({ searchStr, handleInputChange, handleButtonClick }): JSX.Element => {
   const inputEl = useRef<HTMLInputElement | null>(null);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setSearch(e.target.value);
-  };
-
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(e);
-    if (inputEl.current) {
-      setSearch(inputEl.current.value);
-      console.log('set value');
-    }
-  };
 
   return (
     <div>
-      <input ref={inputEl} type="text" value={search} onChange={handleChange} />
-      <button onClick={handleClick}>{'->'}</button>
+      <input
+        ref={inputEl}
+        type="text"
+        value={searchStr}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e.target.value)}
+      />
+      <button onClick={handleButtonClick}>&rarr;</button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { type JSX } from 'react';
+import React, { useEffect, type JSX } from 'react';
 import Card from '../Card/Card';
 import './CardList.scss';
 import { searchCompanies } from '../../api';
@@ -6,9 +6,11 @@ import { searchCompanies } from '../../api';
 // interface CardListProps {}
 
 const CardList: React.FC = (): JSX.Element => {
-  searchCompanies('tsla').then((res) => {
-    console.log(res);
-  });
+  useEffect(() => {
+    searchCompanies('tsla').then((res) => {
+      console.log(res);
+    });
+  }, []);
 
   return (
     <div className="card-list">
