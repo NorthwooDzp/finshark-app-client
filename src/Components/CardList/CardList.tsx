@@ -5,13 +5,14 @@ import type { CompanySearch } from '../../models';
 
 interface CardListProps {
   companies: CompanySearch[];
+  onPortfolioCreate: () => void;
 }
 
-const CardList: React.FC<CardListProps> = ({ companies }): JSX.Element => {
+const CardList: React.FC<CardListProps> = ({ companies, onPortfolioCreate }): JSX.Element => {
   return (
     <div className="card-list">
       {companies.map((company) => (
-        <Card key={company.symbol} company={company} />
+        <Card key={company.symbol} company={company} onPortfolioCreate={onPortfolioCreate} />
       ))}
     </div>
   );

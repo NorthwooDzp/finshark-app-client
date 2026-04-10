@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type JSX } from 'react';
+import React, { useState, type JSX } from 'react';
 import CardList from './Components/CardList/CardList';
 import Search from './Components/Search/Search';
 import type { CompanySearch } from './models';
@@ -6,15 +6,14 @@ import { searchCompanies } from './api';
 import './App.scss';
 
 const App: React.FC = (): JSX.Element => {
-  const [search, setSearch] = useState<string>('');
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string>('');
 
-  useEffect(() => {
-    if (!search) {
+  const handleSearch = (term: string) => {
+    if (!term) {
       return;
     }
-    searchCompanies(search)
+    searchCompanies(term)
       .then((res) => {
         setServerError('');
         setSearchResult(res);
@@ -22,21 +21,13 @@ const App: React.FC = (): JSX.Element => {
       .catch((err: Error) => {
         setServerError(err.message);
       });
-  }, [search]);
-
-  const handleChange = (searchTerm: string): void => {
-    console.log(searchTerm);
-
-    setSearch(searchTerm);
   };
 
-  const handleSearchClick = () => {
-    console.log('click on button near the search');
-  };
+  const onPortfolioCreate: () => void = () => {};
 
   return (
     <div>
-      <Search searchStr={search} handleButtonClick={handleSearchClick} handleInputChange={handleChange} />
+      <Search handleSearch={handleSearch} />
       {/* {(() => {
         if (serverError) {
           return <h3>{serverError}</h3>;
@@ -52,7 +43,7 @@ const App: React.FC = (): JSX.Element => {
       ) : (
         <>
           {searchResult.length ? (
-            <CardList companies={searchResult} />
+            <CardList companies={searchResult} onPortfolioCreate={onPortfolioCreate} />
           ) : (
             <h4>No results found, please change the search term</h4>
           )}

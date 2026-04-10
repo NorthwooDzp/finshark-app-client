@@ -1,12 +1,14 @@
 import React, { useCallback, type JSX } from 'react';
 import './Card.scss';
 import type { CompanySearch } from '../../models';
+import AddPortfolio from '../Portfolio/AddPortfolio/AddPortfolio';
 
 interface CardProps {
   company: CompanySearch;
+  onPortfolioCreate: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ company }): JSX.Element => {
+const Card: React.FC<CardProps> = ({ company, onPortfolioCreate }): JSX.Element => {
   const getRandomPrice: () => number = useCallback(() => Math.round(Math.random() * 10000), []);
 
   return (
@@ -24,6 +26,9 @@ const Card: React.FC<CardProps> = ({ company }): JSX.Element => {
       <p className="info">
         {company.exchangeFullName} - {company.exchange} - {company.currency}
       </p>
+      <>
+        <AddPortfolio symbol={company.symbol} onPortfolioCreate={onPortfolioCreate} />
+      </>
     </div>
   );
 };

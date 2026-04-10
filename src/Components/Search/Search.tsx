@@ -1,24 +1,21 @@
-import React, { useRef, type ChangeEvent, type JSX } from 'react';
+import React, { useRef, type JSX, type SyntheticEvent } from 'react';
 
 interface SearchProps {
-  searchStr: string;
-  handleInputChange: (val: string) => void;
-  handleButtonClick: () => void;
+  handleSearch: (val: string) => void;
 }
 
-const Search: React.FC<SearchProps> = ({ searchStr, handleInputChange, handleButtonClick }): JSX.Element => {
+const Search: React.FC<SearchProps> = ({ handleSearch }): JSX.Element => {
   const inputEl = useRef<HTMLInputElement | null>(null);
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    handleSearch(inputEl.current?.value ?? '');
+  };
 
   return (
-    <div>
-      <input
-        ref={inputEl}
-        type="text"
-        value={searchStr}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e.target.value)}
-      />
-      <button onClick={handleButtonClick}>&rarr;</button>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input ref={inputEl} type="text" placeholder="Type name and press Enter" />
+      <input type="submit" hidden={true} />
+    </form>
   );
 };
 
