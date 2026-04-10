@@ -37,13 +37,35 @@ const App: React.FC = (): JSX.Element => {
   return (
     <div>
       <Search searchStr={search} handleButtonClick={handleSearchClick} handleInputChange={handleChange} />
-      {serverError && <>{serverError}</>}
-      {!serverError && (
+      {/* {(() => {
+        if (serverError) {
+          return <h3>{serverError}</h3>;
+        } else if (!searchResult.length) {
+          return <h3>No results found, please change the search term</h3>;
+        } else {
+          return <CardList companies={searchResult} />;
+        }
+      })()} */}
+
+      {serverError ? (
+        <h3>{serverError}</h3>
+      ) : (
         <>
-          {!searchResult.length && <h4>No results found, please change the search term</h4>}
-          <CardList companies={searchResult} />
+          {searchResult.length ? (
+            <CardList companies={searchResult} />
+          ) : (
+            <h4>No results found, please change the search term</h4>
+          )}
         </>
       )}
+
+      {/* {serverError && <h3>{serverError}</h3>}
+      {!serverError && (
+        <>
+          {searchResult.length && <CardList companies={searchResult} />}
+          {!searchResult.length && <h4>No results found, please change the search term</h4>}
+        </>
+      )} */}
     </div>
   );
 };
