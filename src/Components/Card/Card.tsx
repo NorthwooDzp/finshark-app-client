@@ -1,13 +1,14 @@
-import React, { type JSX } from "react";
-import "./Card.scss";
+import React, { useCallback, type JSX } from 'react';
+import './Card.scss';
+import type { CompanySearch } from '../../models';
 
 interface CardProps {
-  companyName: string;
-  price: number;
-  ticker: string;
+  company: CompanySearch;
 }
 
-const Card: React.FC<CardProps> = ({ companyName, price, ticker }): JSX.Element => {
+const Card: React.FC<CardProps> = ({ company }): JSX.Element => {
+  const getRandomPrice: () => number = useCallback(() => Math.round(Math.random() * 10000), []);
+
   return (
     <div className="card">
       <img
@@ -16,11 +17,13 @@ const Card: React.FC<CardProps> = ({ companyName, price, ticker }): JSX.Element 
       />
       <div className="details">
         <h2>
-          {companyName} ({ticker})
+          {company.name} ({company.symbol})
         </h2>
-        <p>${price}</p>
+        <p>${getRandomPrice()}</p>
       </div>
-      <p className="info">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem, at?</p>
+      <p className="info">
+        {company.exchangeFullName} - {company.exchange} - {company.currency}
+      </p>
     </div>
   );
 };
