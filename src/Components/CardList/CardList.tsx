@@ -1,24 +1,25 @@
-import React, { useEffect, type JSX } from 'react';
+import React, { useCallback, type JSX } from 'react';
 import Card from '../Card/Card';
 import './CardList.scss';
-import { searchCompanies } from '../../api';
+import type { CompanySearch } from '../../models';
 
-// interface CardListProps {}
+interface CardListProps {
+  companies: CompanySearch[];
+}
 
-const CardList: React.FC = (): JSX.Element => {
-  useEffect(() => {
-    searchCompanies('tsla').then((res) => {
-      console.log(res);
-    });
-  }, []);
+const CardList: React.FC<CardListProps> = ({ companies }): JSX.Element => {
+  const getRandomPrice: () => number = useCallback(() => Math.round(Math.random() * 10000), []);
 
   return (
     <div className="card-list">
-      <Card companyName="Apple" price={456} ticker="APPL" />
-      <Card companyName="Microsoft" price={654} ticker="MSFT" />
-      <Card companyName="Amazon" price={482} ticker="AMZ" />
-      <Card companyName="Google" price={965} ticker="GGL" />
-      <Card companyName="Tesla" price={1057} ticker="TSLA" />
+      {companies.map((comapny) => (
+        <Card
+          key={comapny.symbol}
+          companyName={comapny.exchangeFullName}
+          price={getRandomPrice()}
+          ticker={comapny.symbol}
+        />
+      ))}
     </div>
   );
 };

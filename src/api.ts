@@ -24,8 +24,11 @@ export const searchCompanies = async (query: string): Promise<CompanySearch[]> =
       },
     });
     return data;
-  } catch (err) {
-    console.log(err);
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
+      throw new Error(err.message);
+    }
+    throw new Error('Failed to load search results...', { cause: err });
   }
   return [];
 };
