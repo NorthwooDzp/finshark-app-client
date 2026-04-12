@@ -2,17 +2,19 @@ import React, { type JSX } from 'react';
 import Card from '../Card/Card';
 import './CardList.scss';
 import type { CompanySearch } from '../../models';
+import { usePortfolio } from '../../context/Portfolio.context';
 
 interface CardListProps {
   companies: CompanySearch[];
-  onPortfolioCreate: (value: string) => void;
 }
 
-const CardList: React.FC<CardListProps> = ({ companies, onPortfolioCreate }): JSX.Element => {
+const CardList: React.FC<CardListProps> = ({ companies }): JSX.Element => {
+  const { addToPortfolio } = usePortfolio();
+
   return (
     <div className="card-list">
       {companies.map((company) => (
-        <Card key={company.symbol} company={company} onPortfolioCreate={onPortfolioCreate} />
+        <Card key={company.symbol} company={company} onPortfolioCreate={addToPortfolio} />
       ))}
     </div>
   );
