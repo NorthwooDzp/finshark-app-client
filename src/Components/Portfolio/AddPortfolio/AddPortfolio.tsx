@@ -2,7 +2,7 @@ import React, { type JSX, type SyntheticEvent } from 'react';
 
 interface AddPortfolioProps {
   symbol: string;
-  onPortfolioCreate: () => void;
+  onPortfolioCreate: (value: string) => void;
 }
 
 const AddPortfolio: React.FC<AddPortfolioProps> = ({ symbol, onPortfolioCreate }): JSX.Element => {
@@ -10,7 +10,7 @@ const AddPortfolio: React.FC<AddPortfolioProps> = ({ symbol, onPortfolioCreate }
     e.preventDefault();
     console.log('Creating portfolio', e);
 
-    onPortfolioCreate();
+    onPortfolioCreate(symbol);
   };
   return (
     <form onSubmit={portfolioCreateHandler}>

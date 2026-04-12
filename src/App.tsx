@@ -4,10 +4,12 @@ import Search from './Components/Search/Search';
 import type { CompanySearch } from './models';
 import { searchCompanies } from './api';
 import './App.scss';
+import ListPortfolio from './Components/Portfolio/ListPortfolio/ListPortfolio';
 
 const App: React.FC = (): JSX.Element => {
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string>('');
+  const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
 
   const handleSearch = (term: string) => {
     if (!term) {
@@ -23,10 +25,13 @@ const App: React.FC = (): JSX.Element => {
       });
   };
 
-  const onPortfolioCreate: () => void = () => {};
+  const onPortfolioCreate: (value: string) => void = (value: string) => {
+    setPortfolioValues((prev) => Array.from(new Set([...prev, value])));
+  };
 
   return (
     <div>
+      <ListPortfolio portfolioValues={portfolioValues} />
       <Search handleSearch={handleSearch} />
       {/* {(() => {
         if (serverError) {

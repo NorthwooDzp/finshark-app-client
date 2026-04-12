@@ -5,7 +5,7 @@ import AddPortfolio from '../Portfolio/AddPortfolio/AddPortfolio';
 
 interface CardProps {
   company: CompanySearch;
-  onPortfolioCreate: () => void;
+  onPortfolioCreate: (value: string) => void;
 }
 
 const Card: React.FC<CardProps> = ({ company, onPortfolioCreate }): JSX.Element => {

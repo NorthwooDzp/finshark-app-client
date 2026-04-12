@@ -5,7 +5,7 @@ import type { CompanySearch } from '../../models';
 
 interface CardListProps {
   companies: CompanySearch[];
-  onPortfolioCreate: () => void;
+  onPortfolioCreate: (value: string) => void;
 }
 
 const CardList: React.FC<CardListProps> = ({ companies, onPortfolioCreate }): JSX.Element => {
