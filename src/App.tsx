@@ -6,6 +6,8 @@ import { searchCompanies } from './api';
 import './App.scss';
 import ListPortfolio from './Components/Portfolio/ListPortfolio/ListPortfolio';
 import PortfolioProvider from './context/Portfolio.provider';
+import Navbar from './Components/Navbar/Navbar';
+// import Hero from './Components/Hero/Hero';
 
 const App: React.FC = (): JSX.Element => {
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
@@ -26,10 +28,12 @@ const App: React.FC = (): JSX.Element => {
   };
 
   return (
-    <div>
+    <>
       <PortfolioProvider>
-        <ListPortfolio />
+        <Navbar />
+        {/* <Hero /> */}
         <Search handleSearch={handleSearch} />
+        <ListPortfolio />
         {/* {(() => {
         if (serverError) {
           return <h3>{serverError}</h3>;
@@ -40,17 +44,7 @@ const App: React.FC = (): JSX.Element => {
       }
       })()} */}
 
-        {serverError ? (
-          <h3>{serverError}</h3>
-        ) : (
-          <>
-            {searchResult.length ? (
-              <CardList companies={searchResult} />
-            ) : (
-              <h4>No results found, please change the search term</h4>
-            )}
-          </>
-        )}
+        {serverError ? <h3>{serverError}</h3> : <CardList companies={searchResult} />}
 
         {/* {serverError && <h3>{serverError}</h3>}
       {!serverError && (
@@ -60,7 +54,7 @@ const App: React.FC = (): JSX.Element => {
         </>
         )} */}
       </PortfolioProvider>
-    </div>
+    </>
   );
 };
 

@@ -1,15 +1,15 @@
 import React, { type JSX } from 'react';
-import { usePortfolio } from '../../../context/Portfolio.context';
+import DeletePortfolio from '../DeletePortfolio/DeletePortfolio';
 
 interface CardPortfolioProps {
   value: string;
 }
 
 const CardPortfolio: React.FC<CardPortfolioProps> = ({ value }): JSX.Element => {
-  const { removeFromPortfolio } = usePortfolio();
   return (
-    <div>
-      {value} <button onClick={() => removeFromPortfolio(value)}> &times;</button>
+    <div className="flex flex-col w-full p-8 space-y-4 text-center rounded-lg shadow-lg md:w-1/3">
+      <p className="pt-6 text-xl font-bold">{value}</p>
+      <DeletePortfolio value={value} />
     </div>
   );
 };
