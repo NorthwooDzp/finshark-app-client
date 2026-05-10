@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { PortfolioContext } from './Portfolio.context';
 
-const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface PortfolioProviderProps {
+  children: React.ReactNode;
+}
+
+const PortfolioProvider: React.FC<PortfolioProviderProps> = ({ children }) => {
   const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
 
   const removeFromPortfolio = (value: string): void => {
